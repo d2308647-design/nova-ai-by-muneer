@@ -1,0 +1,10 @@
+import express from "express";
+import OpenAI from "openai";
+import path from "path";
+import {fileURLToPath} from "url";
+const __filename=fileURLToPath(import.meta.url),__dirname=path.dirname(__filename);
+const app=express(); app.use(express.json({limit:"10mb"})); app.use(express.static(path.join(__dirname,"public")));
+const client=new OpenAI({apiKey:process.env.OPENAI_API_KEY});
+app.post("/api/chat",async(req,res)=>{try{const r=await client.responses.create({model:process.env.OPENAI_CHAT_MODEL||"gpt-5.6-luna",input:String(req.body.prompt||"")});res.json({text:r.output_text||""})}catch(e){res.status(e.status||500).json({error:e.message||"Chat failed"})}});
+app.post("/api/image",async(req,res)=>{try{const r=await client.images.generate({model:process.env.OPENAI_IMAGE_MODEL||"gpt-image-2",prompt:String(req.body.prompt||"")});const x=r.data?.[0];if(x?.url)return res.json({url:x.url});if(x?.b64_json)return res.json({url:"data:image/png;base64,"+x.b64_json});throw Error("No image returned")}catch(e){res.status(e.status||500).json({error:e.message||"Image failed"})}});
+app.get("/api/health",(req,res)=>res.json({ok:true})); app.listen(process.env.PORT||3000,()=>console.log("Nova AI Studio running"));
