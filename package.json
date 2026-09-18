@@ -1,1 +1,13 @@
-{"name":"nova-ai-studio","version":"1.0.0","private":true,"type":"module","scripts":{"start":"node server.js"},"dependencies":{"express":"^5.1.0","openai":"^5.20.0"}}
+{
+  "name": "nova-ai-studio",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@huggingface/inference": "4.13.30",
+    "express": "^5.1.0",
+    "openai": "^5.20.0"
+  }
+}
