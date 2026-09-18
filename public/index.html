@@ -1,184 +1,198 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nova AI Studio</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nova AI Studio</title>
 
-<style>
-*{box-sizing:border-box}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-  margin:0;
-  background:#0b1020;
-  color:#eef3ff;
-  font:15px system-ui;
-  height:100vh;
-}
+    body {
+      margin: 0;
+      background: #0b1020;
+      color: #eef3ff;
+      font: 15px system-ui, sans-serif;
+      height: 100vh;
+    }
 
-.app{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  max-width:1050px;
-  margin:auto;
-}
+    .app {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 1050px;
+      margin: auto;
+    }
 
-header{
-  padding:16px 20px;
-  border-bottom:1px solid #293653;
-  background:#0d1527;
-  display:flex;
-  justify-content:space-between;
-}
+    header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #293653;
+      background: #0d1527;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.logo{
-  font-weight:800;
-  font-size:20px;
-}
+    .logo {
+      font-weight: 800;
+      font-size: 20px;
+    }
 
-.logo span{
-  color:#6ea8fe;
-}
+    .logo span {
+      color: #6ea8fe;
+    }
 
-main{
-  flex:1;
-  overflow:auto;
-  padding:20px;
-}
+    .status {
+      font-size: 13px;
+      color: #8fa3c7;
+    }
 
-.chat{
-  max-width:850px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
+    main {
+      flex: 1;
+      overflow: auto;
+      padding: 20px;
+    }
 
-.msg{
-  max-width:85%;
-  padding:13px 15px;
-  border-radius:14px;
-  white-space:pre-wrap;
-  line-height:1.5;
-}
+    .chat {
+      max-width: 850px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-.user{
-  align-self:flex-end;
-  background:#24529a;
-}
+    .msg {
+      max-width: 85%;
+      padding: 13px 15px;
+      border-radius: 14px;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
 
-.ai{
-  background:#121a2d;
-  border:1px solid #293653;
-}
+    .user {
+      align-self: flex-end;
+      background: #24529a;
+    }
 
-.media img{
-  max-width:100%;
-  border-radius:12px;
-  margin-top:8px;
-}
+    .ai {
+      align-self: flex-start;
+      background: #121a2d;
+      border: 1px solid #293653;
+    }
 
-.composer{
-  border-top:1px solid #293653;
-  padding:14px;
-  background:#0d1527;
-}
+    .composer {
+      border-top: 1px solid #293653;
+      padding: 14px;
+      background: #0d1527;
+    }
 
-.row,
-.tools{
-  max-width:850px;
-  margin:auto;
-  display:flex;
-  gap:8px;
-}
+    .row {
+      max-width: 850px;
+      margin: auto;
+      display: flex;
+      gap: 8px;
+    }
 
-.tools{
-  margin-top:9px;
-  flex-wrap:wrap;
-}
+    textarea {
+      flex: 1;
+      min-height: 48px;
+      max-height: 180px;
+      resize: none;
+      background: #121a2d;
+      color: #eef3ff;
+      border: 1px solid #293653;
+      border-radius: 12px;
+      padding: 12px;
+      font: inherit;
+      outline: none;
+    }
 
-textarea{
-  flex:1;
-  min-height:48px;
-  resize:none;
-  background:#121a2d;
-  color:#eef3ff;
-  border:1px solid #293653;
-  border-radius:12px;
-  padding:12px;
-  font:inherit;
-}
+    textarea:focus {
+      border-color: #6ea8fe;
+    }
 
-button{
-  border:1px solid #293653;
-  background:#18233b;
-  color:#eef3ff;
-  border-radius:10px;
-  padding:10px 13px;
-  cursor:pointer;
-}
+    button {
+      border: 1px solid #293653;
+      background: #18233b;
+      color: #eef3ff;
+      border-radius: 10px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font: inherit;
+    }
 
-button:hover{
-  background:#223253;
-}
+    button:hover {
+      background: #223252;
+    }
 
-button.primary{
-  background:#6ea8fe;
-  color:#08101f;
-  border:0;
-  font-weight:700;
-}
+    button.primary {
+      background: #6ea8fe;
+      color: #08101f;
+      border: 0;
+      font-weight: 700;
+    }
 
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-</style>
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .msg {
+        max-width: 92%;
+      }
+
+      .row {
+        align-items: flex-end;
+      }
+
+      button.primary {
+        padding: 10px 13px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="app">
 
-<header>
-  <div class="logo">Nova <span>AI Studio</span></div>
-  <div>Ready</div>
-</header>
+  <header>
+    <div class="logo">
+      Nova <span>AI Studio</span>
+    </div>
 
-<main>
-  <div id="chat" class="chat"></div>
-</main>
+    <div class="status">
+      Ready
+    </div>
+  </header>
 
-<div class="composer">
+  <main>
+    <div id="chat" class="chat"></div>
+  </main>
 
-  <div class="row">
-    <textarea
-      id="p"
-      placeholder="Message Nova AI..."
-    ></textarea>
+  <div class="composer">
 
-    <button
-      class="primary"
-      id="send"
-    >
-      Send
-    </button>
-  </div>
+    <div class="row">
 
-  <div class="tools">
+      <textarea
+        id="p"
+        placeholder="Message Nova AI..."
+        autocomplete="off"
+      ></textarea>
 
-    <button id="img">
-      🖼️ Generate image
-    </button>
+      <button
+        class="primary"
+        id="send"
+      >
+        Send
+      </button>
 
-    <button id="vid">
-      🎬 Generate video
-    </button>
+    </div>
 
   </div>
-
-</div>
 
 </div>
 
@@ -186,278 +200,129 @@ button:disabled{
 
 const $ = x => document.getElementById(x);
 
-
-/* Safely display text */
-function esc(s){
-  return String(s).replace(
+function esc(s) {
+  return s.replace(
     /[&<>"']/g,
     c => ({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      "\"":"&quot;",
-      "'":"&#39;"
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
     }[c])
   );
 }
 
+function add(text, type = "ai") {
 
-/* Add a message */
-function add(t,c="ai"){
-  let d=document.createElement("div");
+  const d = document.createElement("div");
 
-  d.className="msg "+c;
+  d.className = "msg " + type;
 
-  d.innerHTML=t;
+  d.innerHTML = text;
 
   $("chat").appendChild(d);
 
   d.scrollIntoView({
-    behavior:"smooth"
+    behavior: "smooth",
+    block: "end"
   });
 
   return d;
 }
 
+async function post(url, body) {
 
-/* Send request to our Render server */
-async function post(u,b){
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
 
-  let r;
+  let data = {};
 
-  try{
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
 
-    r=await fetch(u,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(b)
-    });
-
-  }catch(error){
-
-    throw new Error(
-      "Unable to connect to the Nova AI server."
+  if (!response.ok) {
+    const error = new Error(
+      data.error || "Request failed"
     );
 
+    error.status = response.status;
+
+    throw error;
   }
 
-
-  let j={};
-
-  try{
-
-    j=await r.json();
-
-  }catch(error){
-
-    j={};
-
-  }
-
-
-  if(!r.ok){
-
-    let e=new Error(
-      j.error || "Request failed"
-    );
-
-    e.status=r.status;
-
-    throw e;
-
-  }
-
-
-  return j;
-
+  return data;
 }
 
+async function sendMessage() {
 
-/* =========================
-   TEXT CHAT
-   ========================= */
+  const prompt = $("p").value.trim();
 
-$("send").onclick=async()=>{
-
-  let p=$("p").value.trim();
-
-  if(!p)return;
-
-  $("p").value="";
-
-  add(
-    esc(p),
-    "user"
-  );
-
-  let w=add(
-    "Thinking…"
-  );
-
-  try{
-
-    let d=await post(
-      "/api/chat",
-      {
-        prompt:p
-      }
-    );
-
-    w.textContent=
-      d.text ||
-      "No response returned.";
-
-  }catch(e){
-
-    w.textContent=
-      "Sorry, I couldn't get a response right now.";
-
-  }
-
-};
-
-
-/* =========================
-   IMAGE GENERATION
-   ========================= */
-
-$("img").onclick=async()=>{
-
-  let p=$("p").value.trim();
-
-  if(!p){
-
-    add(
-      "Type an image prompt first."
-    );
-
+  if (!prompt) {
     return;
+  }
+
+  $("p").value = "";
+
+  add(esc(prompt), "user");
+
+  const thinking = add("Thinking...", "ai");
+
+  $("send").disabled = true;
+
+  try {
+
+    const data = await post("/api/chat", {
+      prompt: prompt
+    });
+
+    thinking.textContent =
+      data.text || "No response returned.";
+
+  } catch (error) {
+
+    console.error(error);
+
+    thinking.textContent =
+      "Sorry, I couldn't process that message right now. Please try again.";
+
+  } finally {
+
+    $("send").disabled = false;
+
+    $("p").focus();
+
+  }
+}
+
+$("send").onclick = sendMessage;
+
+$("p").addEventListener("keydown", event => {
+
+  if (
+    event.key === "Enter" &&
+    !event.shiftKey
+  ) {
+
+    event.preventDefault();
+
+    sendMessage();
 
   }
 
-
-  $("p").value="";
-
-
-  add(
-    "🖼️ "+esc(p),
-    "user"
-  );
-
-
-  let w=add(
-    "Generating image…"
-  );
-
-
-  try{
-
-    let d=await post(
-      "/api/image",
-      {
-        prompt:p
-      }
-    );
-
-
-    if(!d.url){
-
-      throw new Error(
-        "No image was returned."
-      );
-
-    }
-
-
-    w.innerHTML=
-      "Generated image:"+
-      "<div class='media'>"+
-      "<img src='"+esc(d.url)+"' alt='Generated image'>"+
-      "</div>";
-
-
-  }catch(e){
-
-    const message=
-      String(e.message || "")
-      .toLowerCase();
-
-
-    /*
-      If the API has no credits/quota,
-      show a friendly message instead
-      of the technical OpenAI error.
-    */
-
-    if(
-      e.status===429 ||
-      message.includes("credit") ||
-      message.includes("quota") ||
-      message.includes("insufficient") ||
-      message.includes("billing")
-    ){
-
-      w.textContent=
-        "🖼️ Image generation is currently unavailable because there are no API credits available.";
-
-    }
-
-    else{
-
-      w.textContent=
-        "🖼️ Image generation is unavailable right now. Please try again later.";
-
-    }
-
-  }
-
-};
-
-
-/* =========================
-   VIDEO BUTTON
-   ========================= */
-
-$("vid").onclick=()=>{
-
-  add(
-    "🎬 Video generation isn't connected yet. The button is ready, but a currently supported video backend needs to be connected before videos can be generated."
-  );
-
-};
-
-
-/* =========================
-   ENTER TO SEND
-   ========================= */
-
-$("p").addEventListener(
-  "keydown",
-  e=>{
-
-    if(
-      e.key==="Enter" &&
-      !e.shiftKey
-    ){
-
-      e.preventDefault();
-
-      $("send").click();
-
-    }
-
-  }
-);
-
-
-/* =========================
-   WELCOME MESSAGE
-   ========================= */
+});
 
 add(
-  "Hi! I'm Nova AI. 👋\n\nUsers don't need to enter an API key."
+  "Hi! I'm Nova AI. How can I help you today?",
+  "ai"
 );
 
 </script>
