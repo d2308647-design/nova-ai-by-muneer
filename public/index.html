@@ -27,7 +27,7 @@
     }
 
     header {
-      padding: 16px 20px;
+      padding: 12px 20px;
       border-bottom: 1px solid #293653;
       background: #0d1527;
       display: flex;
@@ -35,12 +35,25 @@
       align-items: center;
     }
 
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .logo {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .brand-name {
       font-weight: 800;
       font-size: 20px;
     }
 
-    .logo span {
+    .brand-name span {
       color: #6ea8fe;
     }
 
@@ -140,16 +153,25 @@
     }
 
     @media (max-width: 600px) {
+      .app {
+        width: 100%;
+      }
+
+      header {
+        padding: 10px 14px;
+      }
+
+      .logo {
+        width: 40px;
+        height: 40px;
+      }
+
+      .brand-name {
+        font-size: 18px;
+      }
+
       .msg {
         max-width: 92%;
-      }
-
-      .row {
-        align-items: flex-end;
-      }
-
-      button.primary {
-        padding: 10px 13px;
       }
     }
   </style>
@@ -160,8 +182,18 @@
 <div class="app">
 
   <header>
-    <div class="logo">
-      Nova <span>AI Studio</span>
+    <div class="brand">
+
+      <img
+        class="logo"
+        src="/nova-logo.png"
+        alt="Nova AI Studio logo"
+      >
+
+      <div class="brand-name">
+        Nova <span>AI Studio</span>
+      </div>
+
     </div>
 
     <div class="status">
@@ -250,13 +282,9 @@ async function post(url, body) {
   }
 
   if (!response.ok) {
-    const error = new Error(
+    throw new Error(
       data.error || "Request failed"
     );
-
-    error.status = response.status;
-
-    throw error;
   }
 
   return data;
